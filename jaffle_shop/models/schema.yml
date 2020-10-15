@@ -1,5 +1,13 @@
 version: 2
 
+sources:
+  - name: jaffle_shop
+    schema: raw
+    tables:
+      - name: payment
+      - name: customers
+      - name: orders
+
 models:
   - name: customers
     columns:
@@ -21,7 +29,7 @@ models:
         tests:
           - unique
           - not_null
-      - name: status
+      - name: order_status
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
@@ -31,3 +39,17 @@ models:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
+
+  - name: orders
+    columns: 
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+
+
+
